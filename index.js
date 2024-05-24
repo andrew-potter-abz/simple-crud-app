@@ -4,7 +4,12 @@ const express = require("express"); //import express framework
 const mongoose = require("mongoose"); //import mongoose library
 const Product = require("./models/product.model.js"); //import model for saving to db
 const productRoute = require("./routes/product.route.js"); //import routes
+require("dotenv").config(); //Load environmental variables
 const app = express(); //initialize app
+
+//Variables
+const db_Uname = process.env.DB_UNAME;
+const db_Passwd = process.env.DB_PASSWD;
 
 //Middleware
 app.use(express.json()); //allow app to understand json data
@@ -22,7 +27,7 @@ app.get("/", (req, res) => {
 mongoose
   //connect to mongodb backend
   .connect(
-    "mongodb+srv://dbadmin:36aPJjTR4oXhG0XK@nodedb.simsa4a.mongodb.net/Node-API?retryWrites=true&w=majority&appName=NodeDB"
+    'mongodb+srv://'+db_Uname+':'+db_Passwd+'@nodedb.simsa4a.mongodb.net/Node-API?retryWrites=true&w=majority&appName=NodeDB'
   )
   //if connection to db is successful, display connected to console,
   //start http server on port 3000, and say server is running
